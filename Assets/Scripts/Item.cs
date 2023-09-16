@@ -28,7 +28,6 @@ public class Item : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
-        
     }
 
     void Start()

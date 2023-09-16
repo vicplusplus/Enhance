@@ -14,7 +14,8 @@ public class ItemSpawner : MonoBehaviour
         if (!currentObject)
         {
             GameObject selectedPrefab = itemPrefabs[Random.Range(0, itemPrefabs.Count - 1)];
-            Vector3 pos = selectedPrefab.GetComponent<Item>().defaultPosition;
+            // Accounting for fall animation
+            Vector3 pos = selectedPrefab.GetComponent<Item>().defaultPosition + 2.78f * Vector3.up;
             currentObject = Instantiate(selectedPrefab, pos, Quaternion.identity, transform);
         }
     }

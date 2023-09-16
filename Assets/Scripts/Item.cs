@@ -20,12 +20,14 @@ public class Item : MonoBehaviour
     private float distanceDragged;
     private SpriteRenderer spriteRenderer;
     private ScoreManager scoreManager;
+    private ItemPile itemPile;
     private Collider2D col;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         scoreManager = FindObjectOfType<ScoreManager>();
+        itemPile = FindObjectOfType<ItemPile>();
         col = GetComponent<Collider2D>();
     }
 
@@ -58,7 +60,7 @@ public class Item : MonoBehaviour
                         if (state == State.Crafted)
                         {
                             scoreManager.Score++;
-                            Destroy(gameObject);
+                            itemPile.MoveToPile(gameObject);
                         }
                         else
                         {

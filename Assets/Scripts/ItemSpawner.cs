@@ -6,19 +6,9 @@ using UnityEngine.InputSystem;
 public class ItemSpawner : MonoBehaviour
 {
     public List<GameObject> itemPrefabs;
-    public Collider2D pullCordCollider;
     public GameObject currentObject;
 
-    private void Update()
-    {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        if (Mouse.current.leftButton.wasPressedThisFrame && pullCordCollider.OverlapPoint(mousePos))
-        {
-            SpawnItem();
-        }
-    }
-
-    private void SpawnItem()
+    public void SpawnItem()
     {
         if (!currentObject)
         {

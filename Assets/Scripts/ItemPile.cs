@@ -21,6 +21,10 @@ public class ItemPile : MonoBehaviour
 
     public void MoveToPile(GameObject obj)
     {
+        // Generate a random coordinate
+        // x is clamped to a horizontal radius
+        // y is always above the base of the pile
+        // incrementally goes up based on the position of previous items added to the pile
         float x = Random.Range(currentBounds.xMin, currentBounds.xMax);
         float y = Random.Range(currentBounds.yMin, currentBounds.yMax);
         float angle = Random.Range(0, 2 * Mathf.PI);
@@ -28,12 +32,13 @@ public class ItemPile : MonoBehaviour
         float finalY = Mathf.Max(y + displacemnt * Mathf.Sin(angle), currentBounds.yMin);
         Vector3 pos = new Vector3(finalX, finalY, 0);
 
+        // Expands the pile bounds to include current item
         currentBounds.max = Vector2.Max(currentBounds.max, pos);
         currentBounds.min = Vector2.Min(currentBounds.min, pos);
 
+        // Remove all interaction from the item, leaving it as just a static image sitting in the pile
         obj.transform.parent = transform;
         obj.transform.position = pos;
-
         Item itemComponent = obj.GetComponent<Item>();
         if (itemComponent) Destroy(itemComponent);
         spawner.currentObject = null;

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class ItemSpawner : MonoBehaviour
 {
+    // Can randomly pick an item to spawn for more variety
     public List<GameObject> itemPrefabs;
     public GameObject currentObject;
 

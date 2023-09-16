@@ -28,6 +28,7 @@ public class PullCord : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         if (isDragging)
         {
+            // Letting go past a certain pull limit spawns an item and resets the pull cord
             if(!Mouse.current.leftButton.isPressed)
             {
                 transform.position = defaultPos;

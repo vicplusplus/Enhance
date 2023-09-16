@@ -17,6 +17,7 @@ public class Item : MonoBehaviour
     public Sprite craftedSprite;
     public Sprite brokenSprite;
     public SpriteRenderer trashIndicator;
+    public SpriteRenderer addToPileIndicator;
     private bool isDragging;
     private float distanceDragged;
     private SpriteRenderer spriteRenderer;
@@ -33,6 +34,9 @@ public class Item : MonoBehaviour
     void Start()
     {
         trashIndicator = GameObject.Find("Trash Indicator").GetComponent<SpriteRenderer>();
+        trashIndicator.enabled = false;
+        addToPileIndicator = GameObject.Find("Add To Pile Indicator").GetComponent<SpriteRenderer>();
+        addToPileIndicator.enabled = false;
         scoreManager = FindObjectOfType<ScoreManager>();
         itemPile = FindObjectOfType<ItemPile>();
         state = State.Raw;
@@ -53,7 +57,7 @@ public class Item : MonoBehaviour
             }
 
             trashIndicator.enabled = newX > interactDragDistance;
-
+            addToPileIndicator.enabled = newX < -interactDragDistance;
 
 
             if (!Mouse.current.leftButton.isPressed)
@@ -70,6 +74,7 @@ public class Item : MonoBehaviour
                     // Otherwise, it just teleports it back to the usual position.
                     else if (newX < -interactDragDistance)
                     {
+                        addToPileIndicator.enabled = false;
                         if (state == State.Crafted)
                         {
                             scoreManager.Score++;

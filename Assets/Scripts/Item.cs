@@ -20,12 +20,14 @@ public class Item : MonoBehaviour
     private float distanceDragged;
     private SpriteRenderer spriteRenderer;
     private ScoreManager scoreManager;
+    private ItemPile itemPile;
     private Collider2D col;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         scoreManager = FindObjectOfType<ScoreManager>();
+        itemPile = FindObjectOfType<ItemPile>();
         col = GetComponent<Collider2D>();
     }
 
@@ -39,26 +41,33 @@ public class Item : MonoBehaviour
     {
         if (isDragging)
         {
+            // To distinguish between a normal click and a drag, measure how much the mouse has moved while the left button is held down
+            // This makes a long tap also just a click
             float newX = Mathf.Clamp(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x, -maxDragDistance, maxDragDistance);
             distanceDragged += Mouse.current.delta.ReadValue().magnitude;
             if (distanceDragged > distanceDragThreshold)
             {
                 transform.position = new Vector3(newX, transform.position.y, transform.position.z);
             }
+
+
             if (!Mouse.current.leftButton.isPressed)
             {
                 if (distanceDragged > distanceDragThreshold)
                 {
+                    // This checks if the item is dragged to the right, and trashes it unconditionally
                     if (newX > interactDragDistance)
                     {
                         Destroy(gameObject);
                     }
+                    // This checks if the item is dragged to the left, and submits it if is in a valid crafted state
+                    // Otherwise, it just teleports it back to the usual position.
                     else if (newX < -interactDragDistance)
                     {
                         if (state == State.Crafted)
                         {
                             scoreManager.Score++;
-                            Destroy(gameObject);
+                            itemPile.MoveToPile(gameObject);
                         }
                         else
                         {
@@ -83,11 +92,13 @@ public class Item : MonoBehaviour
             if (Mouse.current.leftButton.isPressed && col.OverlapPoint(mousePos))
             {
                 isDragging = true;
+                // Reset distance dragged on each click
                 distanceDragged = 0;
             }
         }
     }
 
+    // Uses a state machine to determine what to do on click, includes changing sprites
     void OnClick()
     {
         switch (state)

@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMProUI;
+using TMPro;
 
 public class Timer : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
     public float timeRemaining = 10;
-    public bool timerISRunning = false;
+    public bool timerIsRunning = false;
     
     // Start is called before the first frame update
     void Start()
     {
         // The timer will start automatically
-        timerISRunning = true;
+        timerIsRunning = true;
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class Timer : MonoBehaviour
             {
                 Debug.Log("Time has run out!");
                 timeRemaining = 0;
-                timerISRunning = false;
+                timerIsRunning = false;
             }
         }
     }

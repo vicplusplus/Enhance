@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof (SpriteRenderer), typeof(Collider2D))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
 public class Item : MonoBehaviour
 {
     public Vector3 defaultPosition;
@@ -16,6 +16,7 @@ public class Item : MonoBehaviour
     public Sprite rawSprite;
     public Sprite craftedSprite;
     public Sprite brokenSprite;
+    public SpriteRenderer trashIndicator;
     private bool isDragging;
     private float distanceDragged;
     private SpriteRenderer spriteRenderer;
@@ -26,13 +27,15 @@ public class Item : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        scoreManager = FindObjectOfType<ScoreManager>();
-        itemPile = FindObjectOfType<ItemPile>();
         col = GetComponent<Collider2D>();
+        
     }
 
     void Start()
     {
+        trashIndicator = GameObject.Find("Trash Indicator").GetComponent<SpriteRenderer>();
+        scoreManager = FindObjectOfType<ScoreManager>();
+        itemPile = FindObjectOfType<ItemPile>();
         state = State.Raw;
         spriteRenderer.sprite = rawSprite;
     }
@@ -50,6 +53,9 @@ public class Item : MonoBehaviour
                 transform.position = new Vector3(newX, transform.position.y, transform.position.z);
             }
 
+            trashIndicator.enabled = newX > interactDragDistance;
+
+
 
             if (!Mouse.current.leftButton.isPressed)
             {
@@ -58,6 +64,7 @@ public class Item : MonoBehaviour
                     // This checks if the item is dragged to the right, and trashes it unconditionally
                     if (newX > interactDragDistance)
                     {
+                        trashIndicator.enabled = false;
                         Destroy(gameObject);
                     }
                     // This checks if the item is dragged to the left, and submits it if is in a valid crafted state
@@ -95,6 +102,7 @@ public class Item : MonoBehaviour
                 // Reset distance dragged on each click
                 distanceDragged = 0;
             }
+            trashIndicator.enabled = false;
         }
     }
 

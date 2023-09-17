@@ -31,6 +31,12 @@ public class Item : MonoBehaviour
         col = GetComponent<Collider2D>();
     }
 
+    private void OnDestroy()
+    {
+        trashIndicator.enabled = false;
+        addToPileIndicator.enabled = false;
+    }
+
     void Start()
     {
         trashIndicator = GameObject.Find("Trash Indicator").GetComponent<SpriteRenderer>();

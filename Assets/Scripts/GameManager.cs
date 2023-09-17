@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         hud.gameObject.SetActive(false);
         endMenu.gameObject.SetActive(true);
         finalScoreDisplay.text = $"Your final score is: {score}";
-        itemSpawner.currentObject.GetComponent<Item>().enabled = false;
+        if(itemSpawner.currentObject) itemSpawner.currentObject.GetComponent<Item>().enabled = false;
         pullCord.enabled = false;
     }
 

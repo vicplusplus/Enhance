@@ -6,7 +6,10 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    private ScoreManager scoreManager;
+    
     public TextMeshProUGUI timeText;
+    public TextMeshProUGUI finalScoreText;
     public float timeRemaining = 10;
     public bool timerIsRunning = false;
     
@@ -15,6 +18,8 @@ public class Timer : MonoBehaviour
     {
         // The timer will start automatically
         timerIsRunning = true;
+        // Getting score reference
+        scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -34,10 +39,20 @@ public class Timer : MonoBehaviour
                 timerIsRunning = false;
             }
         }
+        else
+        {
+            finalScoreText.gameObject.SetActive(true);
+            finalScoreText.text = "Your final score is " + scoreManager.score + "!";
+        }
     }
     
     void DisplayTime(float timeToDisplay)
     {
+        if (timeToDisplay < 0)
+        {
+            timeToDisplay = 0;
+        }
+        
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
         

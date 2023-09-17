@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreDisplay: {fileID: 0}
+  score: 0
 --- !u!4 &134593366
 Transform:
   m_ObjectHideFlags: 0
@@ -954,6 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 1187834588}
+  finalScoreText: {fileID: 605866276}
   timeRemaining: 30
   timerIsRunning: 0
 --- !u!1 &1187834586

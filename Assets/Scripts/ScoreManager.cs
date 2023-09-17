@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour
     }
     public TMP_Text scoreDisplay;
 
-    private int score;
+    public int score;
 
     private void Awake()
     {

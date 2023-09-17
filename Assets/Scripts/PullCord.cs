@@ -14,7 +14,7 @@ public class PullCord : MonoBehaviour
 
     private void Awake()
     {
-        spawner = GetComponentInParent<ItemSpawner>();
+        spawner = FindObjectOfType<ItemSpawner>();
         col = GetComponent<Collider2D>();
     }
 

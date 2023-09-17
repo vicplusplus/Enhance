@@ -21,7 +21,7 @@ public class Item : MonoBehaviour
     private bool isDragging;
     private float distanceDragged;
     private SpriteRenderer spriteRenderer;
-    private ScoreManager scoreManager;
+    private GameManager gameManager;
     private ItemPile itemPile;
     private Collider2D col;
 
@@ -37,7 +37,7 @@ public class Item : MonoBehaviour
         trashIndicator.enabled = false;
         addToPileIndicator = GameObject.Find("Add To Pile Indicator").GetComponent<SpriteRenderer>();
         addToPileIndicator.enabled = false;
-        scoreManager = FindObjectOfType<ScoreManager>();
+        gameManager = FindObjectOfType<GameManager>();
         itemPile = FindObjectOfType<ItemPile>();
         state = State.Raw;
         spriteRenderer.sprite = rawSprite;
@@ -77,7 +77,7 @@ public class Item : MonoBehaviour
                         addToPileIndicator.enabled = false;
                         if (state == State.Crafted)
                         {
-                            scoreManager.Score++;
+                            gameManager.Score++;
                             itemPile.MoveToPile(gameObject);
                         }
                         else

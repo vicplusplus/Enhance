@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         Destroy(itemSpawner.currentObject);
         foreach (Transform t in itemPile.transform)
         {
-            Destroy(t);
+            Destroy(t.gameObject);
         }
     }
 

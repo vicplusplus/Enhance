@@ -31,12 +31,6 @@ public class Item : MonoBehaviour
         col = GetComponent<Collider2D>();
     }
 
-    private void OnDestroy()
-    {
-        trashIndicator.enabled = false;
-        addToPileIndicator.enabled = false;
-    }
-
     void Start()
     {
         trashIndicator = GameObject.Find("Trash Indicator").GetComponent<SpriteRenderer>();
@@ -60,6 +54,7 @@ public class Item : MonoBehaviour
             if (distanceDragged > distanceDragThreshold)
             {
                 transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+                gameManager.SetCursor("");
             }
 
             trashIndicator.enabled = newX > interactDragDistance;
@@ -99,6 +94,7 @@ public class Item : MonoBehaviour
                 else
                 {
                     OnClick();
+                    gameManager.SetCursor("");
                 }
                 isDragging = false;
             }
@@ -106,12 +102,30 @@ public class Item : MonoBehaviour
         else
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            if (Mouse.current.leftButton.isPressed && col.OverlapPoint(mousePos))
+            bool overlap = col.OverlapPoint(mousePos);
+
+            if(overlap)
             {
-                isDragging = true;
-                // Reset distance dragged on each click
-                distanceDragged = 0;
+                if (Mouse.current.leftButton.isPressed)
+                {
+                    isDragging = true;
+                    // Reset distance dragged on each click
+                    distanceDragged = 0;
+                    gameManager.SetCursor("Active Hammer");
+                }
+                else
+                {
+                    gameManager.SetCursor("Hammer");
+                }
             }
+            else
+            {
+                gameManager.SetCursor("");
+            }
+            
+            
+
+
             trashIndicator.enabled = false;
         }
     }

@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public Transform mainMenu;
     public Transform hud;
     public Transform endMenu;
+    public Texture2D hammerCursor;
+    public Texture2D activeHammerCursor;
 
     public int Score
     {
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
         Score = 0;
         TimeRemaining = initialTimer;
         pullCord.enabled = true;
+        itemPile.currentBounds = new Rect(itemPile.transform.position, Vector2.zero);
         Destroy(itemSpawner.currentObject);
         foreach (Transform t in itemPile.transform)
         {
@@ -100,6 +103,7 @@ public class GameManager : MonoBehaviour
         mainMenu.gameObject.SetActive(false);
         hud.gameObject.SetActive(false);
         endMenu.gameObject.SetActive(true);
+        SetCursor("");
         finalScoreDisplay.text = $"Your final score is: {score}";
         if (PlayerPrefs.GetInt("High Score", 0) < score)
         {
@@ -121,6 +125,22 @@ public class GameManager : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
         timeDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void SetCursor(string name)
+    {
+        switch(name)
+        {
+            case "Hammer":
+                Cursor.SetCursor(hammerCursor, Vector2.zero, CursorMode.Auto);
+                break;
+            case "Active Hammer":
+                Cursor.SetCursor(activeHammerCursor, Vector2.zero, CursorMode.Auto);
+                break;
+            default:
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                break;
+        }
     }
 
     public void Quit()

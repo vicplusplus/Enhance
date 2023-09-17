@@ -6,7 +6,7 @@ public class ItemPile : MonoBehaviour
 {
     public float maxRadius;
     public float displacemnt;
-    private Rect currentBounds;
+    public Rect currentBounds;
     private ItemSpawner spawner;
 
     private void Awake()
@@ -43,6 +43,8 @@ public class ItemPile : MonoBehaviour
         obj.transform.rotation = Quaternion.Euler(0, flip ? 180 : 0, Mathf.Rad2Deg * angle / 10);
         Item itemComponent = obj.GetComponent<Item>();
         if (itemComponent) Destroy(itemComponent);
+        SpriteRenderer sprite = obj.GetComponent<SpriteRenderer>();
+        sprite.sortingOrder += Random.Range(-2, 3);
         spawner.currentObject = null;
     }
 }

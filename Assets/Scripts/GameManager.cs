@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreDisplay;
     public TMP_Text timeDisplay;
     public TMP_Text finalScoreDisplay;
+    public TMP_Text highScoreDisplay;
     public ItemSpawner itemSpawner;
     public ItemPile itemPile;
     public PullCord pullCord;
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviour
         hud.gameObject.SetActive(false);
         endMenu.gameObject.SetActive(false);
         pullCord.enabled = false;
+        int highScore = PlayerPrefs.GetInt("High Score", 0);
+        highScoreDisplay.text = highScore > 0 ? $"High Score: {highScore}" : "";
     }
 
     public void StartGame()
@@ -98,6 +101,11 @@ public class GameManager : MonoBehaviour
         hud.gameObject.SetActive(false);
         endMenu.gameObject.SetActive(true);
         finalScoreDisplay.text = $"Your final score is: {score}";
+        if (PlayerPrefs.GetInt("High Score", 0) < score)
+        {
+            finalScoreDisplay.text += "\n High Score!";
+            PlayerPrefs.SetInt("High Score", score);
+        }
         if(itemSpawner.currentObject) itemSpawner.currentObject.GetComponent<Item>().enabled = false;
         pullCord.enabled = false;
     }

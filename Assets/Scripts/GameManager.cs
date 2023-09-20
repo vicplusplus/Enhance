@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -57,13 +58,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        switch(state)
+        switch (state)
         {
             case State.Playing:
                 TimeRemaining -= Time.deltaTime;
                 if (TimeRemaining <= 0)
                 {
                     EndGame();
+                }
+                if (Keyboard.current.escapeKey.wasPressedThisFrame)
+                {
+                    LoadMainMenu();
                 }
                 break;
         }
@@ -110,7 +115,7 @@ public class GameManager : MonoBehaviour
             finalScoreDisplay.text += "\n High Score!";
             PlayerPrefs.SetInt("High Score", score);
         }
-        if(itemSpawner.currentObject) itemSpawner.currentObject.GetComponent<Item>().enabled = false;
+        if (itemSpawner.currentObject) itemSpawner.currentObject.GetComponent<Item>().enabled = false;
         pullCord.enabled = false;
     }
 
@@ -129,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     public void SetCursor(string name)
     {
-        switch(name)
+        switch (name)
         {
             case "Hammer":
                 Cursor.SetCursor(hammerCursor, Vector2.zero, CursorMode.Auto);

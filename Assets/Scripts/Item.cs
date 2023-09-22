@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Collider2D), typeof(AudioSource))]
 public class Item : MonoBehaviour
 {
     public Vector3 defaultPosition;
@@ -24,11 +24,13 @@ public class Item : MonoBehaviour
     private GameManager gameManager;
     private ItemPile itemPile;
     private Collider2D col;
+    private AudioSource audioSource;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -140,6 +142,10 @@ public class Item : MonoBehaviour
                 {
                     state = State.Crafted;
                     spriteRenderer.sprite = craftedSprite;
+                    if(audioSource.clip)
+                    {
+                        audioSource.Play();
+                    }
                 }
                 break;
             case State.Crafted:

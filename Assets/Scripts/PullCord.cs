@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PullCord : MonoBehaviour
 {
-    private bool isDragging;
+    public bool isDragging;
     public float pullThreshold;
     private Vector3 defaultPos;
     public float maxPull;

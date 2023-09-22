@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
         hud.gameObject.SetActive(false);
         endMenu.gameObject.SetActive(false);
         pullCord.enabled = false;
+        pullCord.isDragging = false;
         int highScore = PlayerPrefs.GetInt("High Score", 0);
         highScoreDisplay.text = highScore > 0 ? $"High Score: {highScore}" : "";
     }

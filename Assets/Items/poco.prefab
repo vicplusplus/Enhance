@@ -69,6 +69,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 24de9d16a50888847a40113dd37a4b34, type: 3}
     - target: {fileID: 4381238399274069768, guid: d535f50eceac20244b465b129143a315, type: 3}
+      propertyPath: scoreValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4381238399274069768, guid: d535f50eceac20244b465b129143a315, type: 3}
       propertyPath: brokenSprite
       value: 
       objectReference: {fileID: 21300000, guid: fdba4717c41ecea48a5c6d310688e666, type: 3}

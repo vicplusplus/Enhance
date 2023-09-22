@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     [Range(0, 1)]
     public float upgradeChance;
     public float distanceDragThreshold;
+    public int scoreValue;
     public State state;
     public Sprite rawSprite;
     public Sprite craftedSprite;
@@ -80,7 +81,7 @@ public class Item : MonoBehaviour
                         addToPileIndicator.enabled = false;
                         if (state == State.Crafted)
                         {
-                            gameManager.Score++;
+                            gameManager.Score+= scoreValue;
                             itemPile.MoveToPile(gameObject);
                         }
                         else

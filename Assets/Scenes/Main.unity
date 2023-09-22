@@ -562,6 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2010acde1155cf74c89eeeff17ad767a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragging: 0
   pullThreshold: 1
   maxPull: 1.5
 --- !u!1 &482188614
@@ -2697,17 +2698,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefabs:
   - obj: {fileID: 1333757485046081796, guid: d535f50eceac20244b465b129143a315, type: 3}
-    weight: 50
+    weight: 5000
   - obj: {fileID: 5668043485919801233, guid: ff6f5fa58b7fc084fbc93dd60f45d5d2, type: 3}
-    weight: 20
+    weight: 2000
   - obj: {fileID: 2521447678842567044, guid: 5c0ab1f7fe589694380fdeeabc5a56fa, type: 3}
-    weight: 30
+    weight: 3000
   - obj: {fileID: 5924048868890695127, guid: be4b88ade0c08214d8a3ab80f61e3575, type: 3}
-    weight: 10
+    weight: 1000
   - obj: {fileID: 338224851503098585, guid: 505c78d4d7c41584f8bba4c90134df7a, type: 3}
-    weight: 1
+    weight: 100
   - obj: {fileID: 7236714710299977284, guid: 6b73ae88c870ab046bb513d66aa45926, type: 3}
-    weight: 0.05
+    weight: 4000
   currentObject: {fileID: 0}
 --- !u!1 &1911250970
 GameObject:
